@@ -182,3 +182,32 @@ docker-compose -version
 ```
 
 # 4. 탄력적 IP
+
+네트워크 및 보안 탭 탄력적 IP 클릭, 탄력적 IP 주소 할당
+
+![image](https://user-images.githubusercontent.com/68358404/127100569-4cca6ff1-dac6-4ef6-b5d4-977e0c188d5f.png)
+
+할당
+
+![image](https://user-images.githubusercontent.com/68358404/127100751-45c16a25-8b7c-4abc-981d-9069cd7bf0ff.png)
+
+주소 클릭
+
+![image](https://user-images.githubusercontent.com/68358404/127100837-95b55cee-9038-4f9c-93db-b6ff8b8135f0.png)
+
+탄력적 IP 주소 연결
+
+![image](https://user-images.githubusercontent.com/68358404/127100889-705cb509-8927-4b41-aa46-c5d1ec9dc215.png)
+
+연결하려는 서버 체크 후 연결
+
+![image](https://user-images.githubusercontent.com/68358404/127101002-120c0d61-da25-4a63-9337-e1a81dbe3e78.png)
+
+성공
+
+![image](https://user-images.githubusercontent.com/68358404/127101058-68fbf4cc-3e94-44b9-b617-19d6029111ed.png)
+
+
+
+
+
