@@ -44,3 +44,27 @@ t2.micro 선택 후 다음 검토 및 시작
 이런 식으로 EC2 서버 다섯개 생성
 
 ![image](https://user-images.githubusercontent.com/68358404/127077804-0e9f77c4-5d8e-44d1-b982-7fbbb79c64d3.png)
+
+## 3.1 EC2서버 인바운드 규칙
+
+지금 만들어둔 서버들은 모든 아이피, 포트번호로 접속 가능하다. 인바운드에 규칙을 둬서 아무나 접속하지 못하게 설정한다.
+인
+네트워크 및 보안 탭에 보안 그룹 클릭
+
+![image](https://user-images.githubusercontent.com/68358404/127078426-f66f9d2c-2f89-492d-ae1f-dd481bf5d319.png)
+
+인바운드 규칙 수정
+
+![image](https://user-images.githubusercontent.com/68358404/127078462-9fed3436-20f7-4afe-864c-9f4068c6c50b.png)
+
+인바운드 규칙 편집
+
+![image](https://user-images.githubusercontent.com/68358404/127078773-0e185b2b-5304-4a35-b61d-0db4949b9f70.png)
+
+규칙의 의미
+
+TCP port 2377: manager 노드에서 listen 하고 있는 포트(cluster management 통신에 사용)
+TCP/UDP port 4789: Overlay Network 트래픽용 포트
+TCP/UDP port 7946: 컨테이너 네트워크 검색을 위한 포트(Node 간 통신에 사용)
+
+
