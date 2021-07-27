@@ -229,7 +229,7 @@ docker swarm join-token manager
 
 ![image](https://user-images.githubusercontent.com/68358404/127111468-9729205a-2817-4246-9961-a6c122a9317b.png)
 
-서버 1~4 에서 docker swarm join --token {token 정보} {node5 IP:2377} --advertise-addr node 1~4 ip 입력
+서버 1 ~ 4 에서 docker swarm join --token {token 정보} {node5 IP:2377} --advertise-addr node 1~4 ip 입력
 
 ```
 docker swarm join --token SWMTKN-1-5bf6aquzzqs1c4egdu3fznlklw6n1oxdg8bs5v9vel6j7boemr-5j531tcpjmkkp8kp7lb98qje6 54.180.58.25:2377 --advertise-addr 13.209.56.166
@@ -245,13 +245,20 @@ docker swarm join --token SWMTKN-1-5bf6aquzzqs1c4egdu3fznlklw6n1oxdg8bs5v9vel6j7
 
 ![image](https://user-images.githubusercontent.com/68358404/127103183-e5473d8c-6dce-4ef6-a06b-e1aa6bf22b2c.png)
 
-node5 에서 docker 끼리 연결되어있는지 확인 
+docker-swarm 을 사용하면 docker 로 띄워진 peer 들끼리 통신, orderer 와의 통신 등 docker-daemon 간의 network 를 설정해야 한다. 따라서 통신을 위한 overlay network 를 만든다.
 
 ```
-docker node ls
+docker network create --attachable --driver overlay first-network
+docker network ls
 ```
 
-![image](https://user-images.githubusercontent.com/68358404/127103322-9389f805-2cdd-433f-a518-81eaf392ea64.png)
+![image](https://user-images.githubusercontent.com/68358404/127112966-a4063474-d3d1-4a5d-b7ce-9a8a6f4e80d1.png)
+![image](https://user-images.githubusercontent.com/68358404/127113099-2f0788c4-63a7-42a2-89af-870889b3ab63.png)
+
+※ 혹시 토큰 정보를 잃어버린 경우 docker swarm join-token {manager | worker} 를 이용해서 찾으면 된다.
+
+※ 토큰 정보는 중요한 정보이다. 지금은 실습을 이해하기 위해 공개했지만, 외부에 공개하면 안되는 정보이다. 만약 노출되었다면 docker swarm join-token --rotate {manager | worker} 를 이용해서 토큰을 변경할 수 있다.
+
 
 
 
@@ -263,29 +270,4 @@ mkdir -p ./go/src/github.com/hyperledger/
 cd ~/go/src/github.com/hyperledger/
 curl -sSL http://bit.ly/2ysbOFE | bash -s -- 1.4.12 1.5.0 0.4.22
 ```
-
-※ 혹시 토큰 정보를 잃어버린 경우 docker swarm join-token {manager | worker} 를 이용해서 찾으면 된다.
-
-※ 토큰 정보는 중요한 정보이다. 지금은 실습을 이해하기 위해 공개했지만, 외부에 공개하면 안되는 정보이다. 만약 노출되었다면 docker swarm join-token --rotate {manager | worker} 를 이용해서 토큰을 변경할 수 있다.
-
-
-docker-swarm 을 사용하면 docker 로 띄워진 peer 들끼리 통신, orderer 와의 통신 등 docker-daemon 간의 network 를 설정해야 한다. 따라서 통신을 위한 overlay network 를 만든다.
-
-```
-node 5에서
-docker network create --attachable --driver overlay fabric-samples
-```
-
-성공
-
-![image](https://user-images.githubusercontent.com/68358404/127103948-2e8230d7-04ed-49ed-b3c3-2e12c6421541.png)
-
-목록확인
-
-```
-docker network ls
-```
-
-![image](https://user-images.githubusercontent.com/68358404/127104065-9994e984-db5e-4287-8307-816810ff9012.png)
-
 
