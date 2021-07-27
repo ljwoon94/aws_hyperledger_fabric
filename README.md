@@ -6,11 +6,11 @@ AWS EC2와 docker swarm을 사용해, amazon managed blockchain 없이 하이퍼
 RAFT 오더링 서비스를 사용하기 위해, AWS EC2에서 인스턴스 5개 생성.
 각 인스턴스는 블록체인 노드가 된다. 
 
-NODE1 : Orderer1, CA, peer0.org1, msp, couchdb, CLI 웹 클라이언트 서버 
-NODE2 : Orderer2, CA, peer0.org2, msp, couchdb, 웹 서버 
-NODE3 : Orderer3, CA, peer0.org3, msp, couchdb
-NODE4 : Orderer4, CA, peer0.org4, msp, couchdb
-NODE5 : Orderer5, CA, peer0.org5, msp, couchdb
+NODE1 : Orderer1, CA, peer0.org1, msp, couchdb, CLI 웹 클라이언트 서버 </br>
+NODE2 : Orderer2, CA, peer0.org2, msp, couchdb, 웹 서버 </br>
+NODE3 : Orderer3, CA, peer0.org3, msp, couchdb </br>
+NODE4 : Orderer4, CA, peer0.org4, msp, couchdb </br>
+NODE5 : Orderer5, CA, peer0.org5, msp, couchdb </br>
 
 5개의 조직 전부 한 채널에 들어갈 예정
 
@@ -181,3 +181,4 @@ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 docker-compose -version 
 ```
 
+# 4. 탄력적 IP
