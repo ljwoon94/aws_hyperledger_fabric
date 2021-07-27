@@ -146,13 +146,13 @@ nvm 설치 후
 
 ```
 . ~/.profile
+nvm install --lts
 ```
 
 angular 설치
 
 ```
 npm install -g @angular/cli
-nvm install --lts
 ```
 
 jq 설치
