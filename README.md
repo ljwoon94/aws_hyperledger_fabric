@@ -126,10 +126,14 @@ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 - Project 를 위한 GOPATH 의 위치 설정. 아래에 (src), pkg, bin 폴더가 생길 것이다.
 - 실행파일이 저장될 위치들인 $GOPATH/bin 와 $GOROOT/bin 디렉토리를 PATH 에 추가해준다.
 
+```
+. ~/.profile
+```
+
 환경변수 확인해보기
 
 ```
-echo=$GOPATH
+echo = $GOPATH
 ```
 
 nvm 설치
@@ -148,6 +152,7 @@ angular 설치
 
 ```
 npm install -g @angular/cli
+nvm install --lts
 ```
 
 jq 설치
