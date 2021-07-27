@@ -165,6 +165,8 @@ sudo apt install jq
 
 ```
 sudo apt install docker.io
+```
+```
 sudo systemctl enable --now docker
 sudo usermod -aG docker ubuntu
 sudo su - ubuntu
