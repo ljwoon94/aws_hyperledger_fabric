@@ -227,18 +227,18 @@ docker swarm join-token manager
 
 결과 (token 값과 노드5 ip + 포트번호)
 
-![image](https://user-images.githubusercontent.com/68358404/127102477-3365e7da-a245-4ef2-92f3-092fe5a89887.png)
+![image](https://user-images.githubusercontent.com/68358404/127111468-9729205a-2817-4246-9961-a6c122a9317b.png)
 
 서버 1~4 에서 docker swarm join --token {token 정보} {node5 IP:2377} --advertise-addr node 1~4 ip 입력
 
 ```
-docker swarm join --token SWMTKN-1-2158na5qn8c1dycwmvly3qf6kb2cajgofot811lh31lcpfyl7t-a4e2yzxscnolomcn7m418mm6n 54.180.58.25:2377 --advertise-addr 13.209.56.166
+docker swarm join --token SWMTKN-1-5bf6aquzzqs1c4egdu3fznlklw6n1oxdg8bs5v9vel6j7boemr-5j531tcpjmkkp8kp7lb98qje6 54.180.58.25:2377 --advertise-addr 13.209.56.166
  
-docker swarm join --token SWMTKN-1-2158na5qn8c1dycwmvly3qf6kb2cajgofot811lh31lcpfyl7t-a4e2yzxscnolomcn7m418mm6n 54.180.58.25:2377 --advertise-addr 13.124.175.72
+docker swarm join --token SWMTKN-1-5bf6aquzzqs1c4egdu3fznlklw6n1oxdg8bs5v9vel6j7boemr-5j531tcpjmkkp8kp7lb98qje6 54.180.58.25:2377 --advertise-addr 13.124.175.72
 
-docker swarm join --token SWMTKN-1-2158na5qn8c1dycwmvly3qf6kb2cajgofot811lh31lcpfyl7t-a4e2yzxscnolomcn7m418mm6n 54.180.58.25:2377 --advertise-addr 3.36.180.104
+docker swarm join --token SWMTKN-1-5bf6aquzzqs1c4egdu3fznlklw6n1oxdg8bs5v9vel6j7boemr-5j531tcpjmkkp8kp7lb98qje6 54.180.58.25:2377 --advertise-addr 3.36.180.104
 
-docker swarm join --token SWMTKN-1-2158na5qn8c1dycwmvly3qf6kb2cajgofot811lh31lcpfyl7t-a4e2yzxscnolomcn7m418mm6n 54.180.58.25:2377 --advertise-addr 3.36.151.247
+docker swarm join --token SWMTKN-1-5bf6aquzzqs1c4egdu3fznlklw6n1oxdg8bs5v9vel6j7boemr-5j531tcpjmkkp8kp7lb98qje6 54.180.58.25:2377 --advertise-addr 3.36.151.247
 ```
 
 성공
