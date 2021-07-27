@@ -6,11 +6,11 @@ AWS EC2와 docker swarm을 사용해, amazon managed blockchain 없이 하이퍼
 RAFT 오더링 서비스를 사용하기 위해, AWS EC2에서 인스턴스 5개 생성.
 각 인스턴스는 블록체인 노드가 된다. 
 
-NODE1 : Orderer1, CA, peer0.org1, msp, couchdb, CLI 웹 클라이언트 서버 </br>
-NODE2 : Orderer2, CA, peer0.org2, msp, couchdb, 웹 서버 </br>
+NODE1 : Orderer1, CA, peer0.org1, msp, couchdb, 웹 클라이언트 서버 </br>
+NODE2 : Orderer2, CA, peer0.org2, msp, couchdb, 웹 백엔드 서버 </br>
 NODE3 : Orderer3, CA, peer0.org3, msp, couchdb </br>
 NODE4 : Orderer4, CA, peer0.org4, msp, couchdb </br>
-NODE5 : Orderer5, CA, peer0.org5, msp, couchdb </br>
+NODE5 : Orderer5, CA, peer0.org5, msp, couchdb , cli, docker-swarm</br>
 
 5개의 조직 전부 한 채널에 들어갈 예정
 
@@ -207,7 +207,85 @@ docker-compose -version
 
 ![image](https://user-images.githubusercontent.com/68358404/127101058-68fbf4cc-3e94-44b9-b617-19d6029111ed.png)
 
+![image](https://user-images.githubusercontent.com/68358404/127101287-669300a3-693b-4fdc-82cd-16cd42f65fd2.png)
+
+# 4. Docker-Swarm
+
+NODE5에 cli 기능과 docker_swarm 을 사용할 예정
+docker_swarm을 통해 5개의 서버를 관리할 예정
+
+node5에 접속 (docker swarm join --token {token 정보} {node5 IP:2377})
+
+docker-swarm 초기화
+
+```
+docker swarm init --advertise-addr <node5 private ip>
+ex)
+docker swarm init --advertise-addr 54.180.58.25
+docker swarm join-token manager
+```
+
+결과 (token 값과 노드5 ip + 포트번호)
+
+![image](https://user-images.githubusercontent.com/68358404/127102477-3365e7da-a245-4ef2-92f3-092fe5a89887.png)
+
+서버 1~4 에서 docker swarm join --token {token 정보} {node5 IP:2377} --advertise-addr node 1~4 ip 입력
+
+```
+docker swarm join --token SWMTKN-1-2158na5qn8c1dycwmvly3qf6kb2cajgofot811lh31lcpfyl7t-a4e2yzxscnolomcn7m418mm6n 54.180.58.25:2377 --advertise-addr 13.209.56.166
+ 
+docker swarm join --token SWMTKN-1-2158na5qn8c1dycwmvly3qf6kb2cajgofot811lh31lcpfyl7t-a4e2yzxscnolomcn7m418mm6n 54.180.58.25:2377 --advertise-addr 13.124.175.72
+
+docker swarm join --token SWMTKN-1-2158na5qn8c1dycwmvly3qf6kb2cajgofot811lh31lcpfyl7t-a4e2yzxscnolomcn7m418mm6n 54.180.58.25:2377 --advertise-addr 3.36.180.104
+
+docker swarm join --token SWMTKN-1-2158na5qn8c1dycwmvly3qf6kb2cajgofot811lh31lcpfyl7t-a4e2yzxscnolomcn7m418mm6n 54.180.58.25:2377 --advertise-addr 3.36.151.247
+```
+
+성공
+
+![image](https://user-images.githubusercontent.com/68358404/127103183-e5473d8c-6dce-4ef6-a06b-e1aa6bf22b2c.png)
+
+node5 에서 docker 끼리 연결되어있는지 확인 
+
+```
+docker node ls
+```
+
+![image](https://user-images.githubusercontent.com/68358404/127103322-9389f805-2cdd-433f-a518-81eaf392ea64.png)
 
 
+
+하이퍼레저 패브릭 설치
+
+```
+cd ~/
+mkdir -p ./go/src/github.com/hyperledger/
+cd ~/go/src/github.com/hyperledger/
+curl -sSL http://bit.ly/2ysbOFE | bash -s -- 1.4.12 1.5.0 0.4.22
+```
+
+※ 혹시 토큰 정보를 잃어버린 경우 docker swarm join-token {manager | worker} 를 이용해서 찾으면 된다.
+
+※ 토큰 정보는 중요한 정보이다. 지금은 실습을 이해하기 위해 공개했지만, 외부에 공개하면 안되는 정보이다. 만약 노출되었다면 docker swarm join-token --rotate {manager | worker} 를 이용해서 토큰을 변경할 수 있다.
+
+
+docker-swarm 을 사용하면 docker 로 띄워진 peer 들끼리 통신, orderer 와의 통신 등 docker-daemon 간의 network 를 설정해야 한다. 따라서 통신을 위한 overlay network 를 만든다.
+
+```
+node 5에서
+docker network create --attachable --driver overlay fabric-samples
+```
+
+성공
+
+![image](https://user-images.githubusercontent.com/68358404/127103948-2e8230d7-04ed-49ed-b3c3-2e12c6421541.png)
+
+목록확인
+
+```
+docker network ls
+```
+
+![image](https://user-images.githubusercontent.com/68358404/127104065-9994e984-db5e-4287-8307-816810ff9012.png)
 
 
